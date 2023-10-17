@@ -14,11 +14,10 @@ pipeline {
         }
 
         stage('Build and Package Application') {
-            steps {
-             
-              sh 'mvn clean package'
-               
-            } 
+              withMaven(tool: 'M3') {
+         sh 'mvn clean package'    
+        }
+            
         }
 
         stage('Build Docker Image') {
