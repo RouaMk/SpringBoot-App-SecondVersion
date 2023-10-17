@@ -14,11 +14,12 @@ pipeline {
         }
 
         stage('Build and Package Application') {
+            stage{
               withMaven(tool: 'M3') {
-                  steps{
-                      
+                  
          sh 'mvn clean package'  
-                  }
+                  
+         } 
         }
             
         }
