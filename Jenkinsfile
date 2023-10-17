@@ -15,11 +15,11 @@ pipeline {
 
         stage('Build and Package Application') {
             stage{
-              withMaven(tool: 'M3') {
+             
                   
          sh 'mvn clean package'  
                   
-         } 
+         
         }
             
         }
