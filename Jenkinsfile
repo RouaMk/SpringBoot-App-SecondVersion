@@ -28,8 +28,8 @@ pipeline{
                         sh "pwd"
                         sh "ls"
                         echo "push to hub"
-                        sh "docker tag devopstp RouaMk/devopstp:devopstp"
-                        sh "docker push RouaMk/devopstp:devopstp"
+                        sh "docker tag devopstp rouamk/devopstp:devopstp"
+                        sh "docker push rouamk/devopstp:devopstp"
          
                            }        
                         }
