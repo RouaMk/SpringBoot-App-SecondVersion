@@ -16,8 +16,8 @@ pipeline {
         stage('Build and Package Application') {
             steps{
              
-          sh 'sudo apt update'
-          sh 'sudo apt install maven'
+          sh 'apt update'
+          sh 'apt install maven'
           sh 'mvn clean package'  
                   
          
