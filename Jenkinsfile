@@ -1,51 +1,56 @@
-pipeline {
+pipeline{
     agent any
-
- 
-    stages {
-        stage('Checkout Code from GitHub') {
+    stages{
+        stage("getting code") {
             steps {
-               
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: 'main']], 
-                    userRemoteConfigs: [[url: 'https://github.com/RouaMk/SpringBoot-App-SecondVersion.git']]
-                ])
+                git url: 'https://github.com/RouaMk/SpringBoot-App-SecondVersion.git', branch: 'main',
+                credentialsId: 'github-credentials' //jenkins-github-creds
+                sh "ls -ltr"
             }
         }
 
-        stage('Build and Package Application') {
-            steps{
-       
-          sh 'mvn clean package'  
-                  
-         
-        }
+       //stage("Setting up infra") 
+         stage("creation de image"){
+            steps {                
+                script {
+                    echo "======== executing ========"
+                        sh "mvn clean package"
             
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t my-spring-app .'
-            }
-        }
-
-        stage('Push Docker Image to Docker Hub') {
-            steps {
-                // Connectez-vous à Docker Hub
-                withDockerRegistry([credentialsId: 'RouaMk', url: 'https://index.docker.io/v1/']) {
-                    
-                    sh 'docker push my-spring-app'
+                        sh "docker build -t devopstp ."
+                       }            
+                        }
+                    } 
+        stage("push to docker hub") {
+            steps {                
+                script {
+                    echo "======== executing ========"
+                        
+                        sh "pwd"
+                        sh "ls"
+                        echo "push to hub"
+                        sh "docker tag devopstp RouaMk/devopstp:devopstp"
+                        sh "docker push RouaMk/devopstp:devopstp"
+         
+                           }        
+                        }
+                    }              
+                }
+            post{
+                success{
+                    echo "======== Setting up infra executed successfully ========"
+                }
+                failure{
+                    echo "======== Setting up infra execution failed ========"
                 }
             }
+             
+        }        
+   /* 
+    post{
+        success{
+            echo "========pipeline executed successfully ========"
         }
-    }
-
-    post {
-        success {
-            echo 'Pipeline terminé avec succès.'
+        failure{
+            echo "========pipeline execution failed========"
         }
-        failure {
-            echo 'Échec du pipeline. Veuillez vérifier les étapes précédentes.'
-        }
-    }
-}
+    }*/
