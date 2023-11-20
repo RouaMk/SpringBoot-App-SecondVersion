@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     echo "======== Executing SonarQube Analysis ========"
-                    withSonarQubeEnv('Nom de votre serveur SonarQube') {
+                    withSonarQubeEnv('SonarQubeServer') {
                         sh "mvn sonar:sonar"
                     }
                 }
