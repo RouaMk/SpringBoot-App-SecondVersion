@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+     environment {
+        SONARQUBE_URL = 'http://localhost:9000'
+        SONARQUBE_CREDENTIALS_ID = 'admin'
+    }
     stages {
         stage("Getting Code") {
             steps {
