@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-spring-app-deployment
+spec:
+  replicas: 3 # Nombre de répliques souhaitées
+  selector:
+    matchLabels:
+      app: my-spring-app
+  template:
+    metadata:
+      labels:
+        app: my-spring-app
+    spec:
+      containers:
+      - name: mon-conteneur
+        image: rouamk/devopstp:devopstp # Nom de votre image Docker
+        ports:
+          - containerPort: 8080   

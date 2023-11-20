@@ -12,4 +12,8 @@ public class GreetingsController {
     public String welcome(){
         return "Welcome to the world of Azure Containers!";
     }
+    @GetMapping("/bye")
+    public String welcome(){
+        return "bye !";
+    }
 }
